@@ -4,21 +4,17 @@ import * as Realm from 'realm-web';
 import  {createUser, deleteUserByName}  from './services/realmService';
 
 
-// Replace with your MongoDB Realm App ID
 const APP_ID = 'exelonwebapp-ixfnzgz';
-// Replace with your API Key
 const API_KEY = '2T3SpSAunEzrSWM3sSUJXCG7abmmDC67DHAA3URnspcXfSChdD5Nc1MSiBqAbNLc';
-   // Initialize the Realm app
 const app = new Realm.App({ id: APP_ID });
 
 function App() {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(null);
-  const [newUser, setNewUser] = useState(null); // State variable to trigger data insertion
+  const [newUser, setNewUser] = useState(null);
 
 
   useEffect(() => {
-    // Log in the user using API key
     const loginWithApiKey = async () => {
       const credentials = Realm.Credentials.apiKey(API_KEY);
       try {
@@ -41,7 +37,6 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      // Fetch data from the MongoDB Atlas database
       const fetchData = async () => {
         const mongodb = user.mongoClient('mongodb-atlas');
         const collection = mongodb.db('user-account').collection('students');
@@ -58,7 +53,6 @@ function App() {
     if (newUser && user) {
       const insertData = async () => {
         try {
-          console.log("......---.....",user)
           await createUser(newUser,user);
           console.log('New user inserted:', newUser);
         } catch (error) {

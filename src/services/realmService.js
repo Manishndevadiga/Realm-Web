@@ -2,18 +2,15 @@ async function createUser(userData,user) {
     console.log("??????",user);
   try {
     // await checkAndCreateUserSchema();
-
     // Proceed with creating the user
     // const user = app.currentUser;
     const mongodb = user.mongoClient('mongodb-atlas');
     const usersCollection = mongodb.db('user-account').collection('Users');
-
-    // Insert the user data into the database
     await usersCollection.insertOne(userData);
     console.log('User created successfully:', userData);
   } catch (error) {
     console.error('Error creating user:', error);
-    throw error; // Throw the error to be caught by the calling function
+    throw error;
   }
 }
 
@@ -22,8 +19,6 @@ async function deleteUserByName(name, user) {
     try {
       const mongodb = user.mongoClient('mongodb-atlas');
       const usersCollection = mongodb.db('user-account').collection('Users');
-  
-      // Delete the user by name
       const deletionResult = await usersCollection.deleteMany({ name });
       
       if (deletionResult.deletedCount === 1) {
@@ -33,7 +28,7 @@ async function deleteUserByName(name, user) {
       }
     } catch (error) {
       console.error('Error deleting user:', error);
-      throw error; // Throw the error to be caught by the calling function
+      throw error; 
     }
   }
 
